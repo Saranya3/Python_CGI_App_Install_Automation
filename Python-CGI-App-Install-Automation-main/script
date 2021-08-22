@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+import cgi, cgitb,subprocess
+form = cgi.FieldStorage()
+
+print('Content-Type: text/plain')
+print()
+ 
+program = form.getvalue('program')
+operation = form.getvalue('ops')
+
+print('performing operation')
+
+if(operation=='install'):
+	if(program=='stress' or program=='elinks'):
+		command = 'sudo apt install '+program
+		output = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+		output = output.stdout.read().decode() 
+		print(output)
+	else:
+		print('error 404')
+elif(operation=='uninstall'):
+	if(program=='stress' or program=='elinks'): 
+		command = 'sudo apt-get purge '+program
+		for_confirmation = subprocess.Popen(['echo','y'], stdout=subprocess.PIPE)
+		output = subprocess.Popen(['sudo','-S'] + command.split(), stdin=for_confirmation.stdout, stdout=subprocess.PIPE)
+		output = output.stdout.read().decode() 
+		print(output)
+	else:
+		print('error 404')
+else:
+	print('request error contact administrator')
+
+print('operation finished')
