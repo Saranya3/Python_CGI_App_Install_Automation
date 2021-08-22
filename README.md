@@ -1,5 +1,5 @@
-# Python CGI (App Install Automation)
-
+# Python CGI 
+(App Install/Uninstall Automation)
 - The project automates the installation and uninstallation of various linux softwares using web-browser. 
 - Uses python-cgi for the implementation. 
 - The project makes system vulnerable at port 80 (http) by giving apache2 created user ```www-data``` sudo priviledges.
